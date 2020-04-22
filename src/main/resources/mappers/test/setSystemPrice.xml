@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hnst.template.dao.test.SetSystemPriceDao">
+    <resultMap id="BaseResultMap" type="net.hnst.template.api.test.SetSystemPrice">
+        <result column="ID" property="id"/>
+        <result column="SYSTEM_ID" property="systemId"/>
+        <result column="COMMONDITY_ID" property="commondityId"/>
+        <result column="PRICE" property="price"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID,
+    SYSTEM_ID,
+    COMMONDITY_ID,
+    PRICE
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from  T_SET_SYSTEM_PRICE
+        where ID =   #{value}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from  T_SET_SYSTEM_PRICE
+        where ID =   #{value}
+    </delete>
+    <insert id="insert" parameterType="net.hnst.template.api.test.SetSystemPrice">
+        insert into  T_SET_SYSTEM_PRICE (
+        <include refid="Base_Column_List"/>
+        )
+        values (
+            #{id, jdbcType= VARCHAR },
+            #{systemId, jdbcType= VARCHAR },
+            #{commondityId, jdbcType= VARCHAR },
+            #{price, jdbcType= VARCHAR }
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="net.hnst.template.api.test.SetSystemPrice">
+        insert into  T_SET_SYSTEM_PRICE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+            ID,
+            </if>
+            <if test="systemId != null">
+            SYSTEM_ID,
+            </if>
+            <if test="commondityId != null">
+            COMMONDITY_ID,
+            </if>
+            <if test="price != null">
+            PRICE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+        <if test="id != null">
+                #{id, jdbcType= VARCHAR },
+        </if>
+        <if test="systemId != null">
+                #{systemId, jdbcType= VARCHAR },
+        </if>
+        <if test="commondityId != null">
+                #{commondityId, jdbcType= VARCHAR },
+        </if>
+        <if test="price != null">
+                #{price, jdbcType= VARCHAR },
+        </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.hnst.template.api.test.SetSystemPrice">
+        update  T_SET_SYSTEM_PRICE
+        <set>
+            <if test="id != null">
+                ID= #{id, jdbcType= VARCHAR },
+            </if>
+            <if test="systemId != null">
+                SYSTEM_ID= #{systemId, jdbcType= VARCHAR },
+            </if>
+            <if test="commondityId != null">
+                COMMONDITY_ID= #{commondityId, jdbcType= VARCHAR },
+            </if>
+            <if test="price != null">
+                PRICE= #{price, jdbcType= VARCHAR },
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.hnst.template.api.test.SetSystemPrice">
+        update  T_SET_SYSTEM_PRICE
+        set
+        ID= #{id, jdbcType= VARCHAR },
+        SYSTEM_ID= #{systemId, jdbcType= VARCHAR },
+        COMMONDITY_ID= #{commondityId, jdbcType= VARCHAR },
+        PRICE= #{price, jdbcType= VARCHAR }
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="selectList" resultMap="BaseResultMap" parameterType="net.hnst.template.api.test.SetSystemPrice">
+        select
+        <include refid="Base_Column_List"/>
+        from  T_SET_SYSTEM_PRICE t
+        <where>
+            1=1
+                <if test="id != null ">
+                    and t.ID =  #{id}
+                </if>
+                <if test="systemId != null ">
+                    and t.SYSTEM_ID =  #{systemId}
+                </if>
+                <if test="commondityId != null ">
+                    and t.COMMONDITY_ID =  #{commondityId}
+                </if>
+                <if test="price != null ">
+                    and t.PRICE =  #{price}
+                </if>
+        </where>
+    </select>
+    <select id="select_page" resultMap="BaseResultMap" parameterType="net.hnst.template.api.test.SetSystemPrice">
+        select
+        <include refid="Base_Column_List"/>
+        from  T_SET_SYSTEM_PRICE t
+        <where>
+            1=1
+                <if test="id != null ">
+                    and t.ID =  #{id}
+                </if>
+                <if test="systemId != null ">
+                    and t.SYSTEM_ID =  #{systemId}
+                </if>
+                <if test="commondityId != null ">
+                    and t.COMMONDITY_ID =  #{commondityId}
+                </if>
+                <if test="price != null ">
+                    and t.PRICE =  #{price}
+                </if>
+        </where>
+    </select>
+    <insert id="insertByBatch" parameterType="java.util.List">
+        insert into  T_SET_SYSTEM_PRICE
+        (    <include refid="Base_Column_List"/>)
+        <foreach collection="list" open="(" close=")" item="item" separator="union all">
+            select
+                #{item.id},
+                #{item.systemId},
+                #{item.commondityId},
+                #{item.price},
+            from dual
+        </foreach>
+    </insert>
+    <delete id="deleteByBatch" parameterType="java.util.List">
+        delete from  T_SET_SYSTEM_PRICE
+        where id in (
+        <foreach collection="list" item="item" separator=",">
+        #{item}
+        </foreach>
+        )
+    </delete>
+
+
+</mapper>
